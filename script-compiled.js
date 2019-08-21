@@ -2,6 +2,61 @@
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
+var mySumElements = function mySumElements(list) {
+    return new Promise(function (resolve, reject) {
+        //TODO example use the Promise
+        var sum = 0;
+        list.forEach(function (data) {
+            return sum += data;
+        });
+
+        if (sum === 12835) {
+            resolve(sum);
+        } else {
+            reject("error");
+        }
+    });
+};
+var listCorrectly = [787, 323, 423, 4545, 6757];
+var listNotCorrectly = [787, 323, 423, 4545, 675];
+var testNumbers = function testNumbers(numbersList) {
+    mySumElements(numbersList).then(function (result) {
+        return console.log("from Promise: " + result);
+    }).catch(function (error) {
+        return console.log("from Promise: " + error);
+    });
+};
+testNumbers(listCorrectly);
+testNumbers(listNotCorrectly);
+
+var url = "http://api.icndb.com/jokes/random";
+var getHttp = function getHttp(url) {
+    return new Promise(function (resolve, reject) {
+        //TODO next example use the Promise with XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.response);
+                resolve(response.value.joke);
+            } else {
+                reject(xhr.status);
+            }
+        };
+        xhr.onerror = function (error) {
+            reject("XMLHttpError " + error);
+        };
+        xhr.open("GET", url);
+        xhr.send();
+    });
+};
+
+getHttp(url).then(function (content) {
+    return console.log("Content: " + content);
+}).catch(function (error) {
+    return console.log("Something was wrong: " + error);
+});
+
 var returnArray = function returnArray(list) {
     //it same: const returnArray = list => list.map(item => item + 1) TODO without return
     return list.map(function (item) {
@@ -63,6 +118,28 @@ console.log(newName);
 var anotherName = [].concat(names, list);
 console.log(anotherName);
 
+var myaverage = function myaverage() {
+    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+    }
+
+    var sum = 0;
+    args.forEach(function (arg) {
+        return sum += arg;
+    });
+    return (sum / args.length).toFixed(2);
+};
+
+console.log(myaverage(1, 2, 3, 4, 5));
+console.log(myaverage(12, 23, 31, 445, 578));
+console.log(myaverage.apply(undefined, list));
+
+var strange = [1, 4, 'Iwona', false, 'Nowak'];
+var fir = strange[2],
+    sec = strange[4];
+
+console.log(fir + " <--> " + sec);
+
 console.log("Task_1 -------------------:");
 var first_word = "Hello";
 var second_word = "World";
@@ -93,8 +170,8 @@ multiply(9);
 console.log("Task_3 -------------------:");
 
 var average = function average() {
-    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
+    for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
     }
 
     var result = 0;
@@ -165,8 +242,8 @@ function shuffleIt(arr) {
 
     var result = arr;
 
-    for (var _len3 = arguments.length, arrayTwoPosition = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
-        arrayTwoPosition[_key3 - 1] = arguments[_key3];
+    for (var _len4 = arguments.length, arrayTwoPosition = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+        arrayTwoPosition[_key4 - 1] = arguments[_key4];
     }
 
     arrayTwoPosition.forEach(function (array) {
@@ -211,8 +288,8 @@ function sumNumbers(newArray) {
 }
 
 function spread(func) {
-    for (var _len4 = arguments.length, args = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
-        args[_key4 - 1] = arguments[_key4];
+    for (var _len5 = arguments.length, args = Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {
+        args[_key5 - 1] = arguments[_key5];
     }
 
     return func.apply(undefined, args);

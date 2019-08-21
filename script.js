@@ -1,3 +1,49 @@
+const mySumElements = list => new Promise((resolve, reject) => {   //TODO example use the Promise
+    let sum = 0;
+    list.forEach(data => sum += data);
+
+    if (sum === 12835) {
+        resolve(sum);
+    } else {
+        reject("error")
+    }
+
+});
+const listCorrectly = [787, 323, 423, 4545, 6757];
+const listNotCorrectly = [787, 323, 423, 4545, 675];
+const testNumbers = numbersList => {
+    mySumElements(numbersList)
+        .then(result => console.log(`from Promise: ${result}`))
+        .catch(error => console.log(`from Promise: ${error}`));
+};
+testNumbers(listCorrectly);
+testNumbers(listNotCorrectly);
+
+
+const url = "http://api.icndb.com/jokes/random";
+const getHttp = url => new Promise((resolve, reject) => {   //TODO next example use the Promise with XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+    xhr.onload = () => {
+
+        if (xhr.status === 200) {
+            let response = JSON.parse(xhr.response);
+            resolve(response.value.joke)
+        } else {
+            reject(xhr.status)
+        }
+    };
+    xhr.onerror = error => {
+        reject(`XMLHttpError ${error}`)
+    };
+    xhr.open("GET", url);
+    xhr.send();
+});
+
+getHttp(url)
+    .then(content => console.log(`Content: ${content}`))
+    .catch(error => console.log(`Something was wrong: ${error}`));
+
+
 const returnArray = list => {           //it same: const returnArray = list => list.map(item => item + 1) TODO without return
     return list.map(item => item + 1)
 };
@@ -28,6 +74,20 @@ newName = [...names, "Gienek"];
 console.log(newName);
 const anotherName = [...names, ...list];
 console.log(anotherName);
+
+const myaverage = (...args) => {
+    let sum = 0;
+    args.forEach(arg => sum += arg);
+    return (sum / args.length).toFixed(2)
+};
+
+console.log(myaverage(1, 2, 3, 4, 5));
+console.log(myaverage(12, 23, 31, 445, 578));
+console.log(myaverage(...list));
+
+const strange = [1, 4, 'Iwona', false, 'Nowak'];
+const [, , fir, , sec] = strange;
+console.log(`${fir} <--> ${sec}`);
 
 console.log("Task_1 -------------------:");
 const first_word = "Hello";
