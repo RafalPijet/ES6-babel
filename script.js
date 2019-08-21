@@ -43,6 +43,47 @@ getHttp(url)
     .then(content => console.log(`Content: ${content}`))
     .catch(error => console.log(`Something was wrong: ${error}`));
 
+const myDelay =  ms => new Promise(resolve =>   //TODO next example use the Promise as delay function
+    setTimeout(resolve, ms)
+);
+
+myDelay(2000)
+    .then(() => console.log("Wow"));
+
+myDelay(3000)
+    .then(() => console.log("Next"));
+
+const getData1 = () => new Promise(resolve => {
+    setTimeout(() => {
+        resolve({
+            status: "OK",
+            data: {
+                message: "Testing message 1"
+            }
+        })
+    }, 1000)
+});
+
+const getData2 = () => new Promise(resolve => {
+    setTimeout(() => {
+        resolve({
+            status: "OK",
+            data: {
+                message: "Testing message 2"
+            }
+        })
+    }, 2000);
+});
+
+Promise.all([getData1(), getData2()])       //TODO example use Promise.all and Promise.race
+    .then(resp => {
+        console.log(resp);
+        console.log(resp[0]);
+        console.log(resp[1]);
+    });
+Promise.race([getData1(), getData2()])
+    .then(resp => console.log(resp));
+
 
 const returnArray = list => {           //it same: const returnArray = list => list.map(item => item + 1) TODO without return
     return list.map(item => item + 1)

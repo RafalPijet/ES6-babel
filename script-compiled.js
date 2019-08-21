@@ -57,6 +57,58 @@ getHttp(url).then(function (content) {
     return console.log("Something was wrong: " + error);
 });
 
+var myDelay = function myDelay(ms) {
+    return new Promise(function (resolve) {
+        return (//TODO next example use the Promise as delay function
+            setTimeout(resolve, ms)
+        );
+    });
+};
+
+myDelay(2000).then(function () {
+    return console.log("Wow");
+});
+
+myDelay(3000).then(function () {
+    return console.log("Next");
+});
+
+var getData1 = function getData1() {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve({
+                status: "OK",
+                data: {
+                    message: "Testing message 1"
+                }
+            });
+        }, 1000);
+    });
+};
+
+var getData2 = function getData2() {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve({
+                status: "OK",
+                data: {
+                    message: "Testing message 2"
+                }
+            });
+        }, 2000);
+    });
+};
+
+Promise.all([getData1(), getData2()]) //TODO example use Promise.all and Promise.race
+.then(function (resp) {
+    console.log(resp);
+    console.log(resp[0]);
+    console.log(resp[1]);
+});
+Promise.race([getData1(), getData2()]).then(function (resp) {
+    return console.log(resp);
+});
+
 var returnArray = function returnArray(list) {
     //it same: const returnArray = list => list.map(item => item + 1) TODO without return
     return list.map(function (item) {
