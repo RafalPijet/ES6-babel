@@ -84,6 +84,44 @@ Promise.all([getData1(), getData2()])       //TODO example use Promise.all and P
 Promise.race([getData1(), getData2()])
     .then(resp => console.log(resp));
 
+class Point {                   //TODO simple example use class and subclass ES6 JS
+    constructor(x, y) {
+        this._x = x;
+        this._y = y;
+    }
+    toString() {
+        return (`${this._x}, ${this._y}`)
+    }
+    static print(text) {
+        console.log(`Example use static method: ${text}`)
+    }
+    get x() {
+        return this._x;
+    }
+    set x(value) {
+        this._x = value;
+    }
+}
+
+const point = new Point(25, 76);
+console.log(point.toString());
+Point.print("print");
+console.log(point.x);
+point.x = 66;
+console.log(point.toString());
+
+class ColorPoint extends Point {
+    constructor(x, y, color) {
+        super(x, y);
+        this._color = color
+    }
+    toString() {
+        return super.toString() + ' in ' + this._color;
+    }
+}
+
+const colorPoint = new ColorPoint(34, 56, "red");
+console.log(colorPoint.toString());
 
 const returnArray = list => {           //it same: const returnArray = list => list.map(item => item + 1) TODO without return
     return list.map(item => item + 1)
